@@ -37,15 +37,15 @@ column_class.module_eval do
     end
   end
 
-  alias __type_cast_code_enum type_cast_code
-  # Code to convert to a symbol.
-  def type_cast_code(var_name)
-    if type == :enum
-      "#{self.class.name}.value_to_symbol(#{var_name})"
-    else
-      __type_cast_code_enum(var_name)
-    end
-  end
+  # alias __type_cast_code_enum type_cast_code
+  # # Code to convert to a symbol.
+  # def type_cast_code(var_name)
+  #   if type == :enum
+  #     "#{self.class.name}.value_to_symbol(#{var_name})"
+  #   else
+  #     __type_cast_code_enum(var_name)
+  #   end
+  # end
 
   class << self
     # Safely convert the value to a symbol.
@@ -71,7 +71,7 @@ private
       __simplified_type_enum(field_type)
     end
   end
-  
+
   alias __extract_limit_enum extract_limit
   def extract_limit(sql_type)
     if sql_type =~ /^enum/i
