@@ -17,7 +17,6 @@ end
 
 column_class.module_eval do
 
-  alias __klass_enum klass
   # The class for enum is Symbol.
   def klass
     if type == :enum
@@ -26,8 +25,8 @@ column_class.module_eval do
       __klass_enum
     end
   end
+  alias __klass_enum klass
 
-  alias __type_cast_enum type_cast_from_database
   # Convert to a symbol.
   def type_cast_from_database(value)
     if type == :enum
@@ -36,6 +35,7 @@ column_class.module_eval do
       __type_cast_enum(value)
     end
   end
+  alias __type_cast_enum type_cast_from_database
 
   # alias __type_cast_code_enum type_cast_code
   # # Code to convert to a symbol.
@@ -62,7 +62,7 @@ column_class.module_eval do
   end
 
 private
-  alias __simplified_type_enum simplified_type
+
   # The enum simple type.
   def simplified_type(field_type)
     if field_type =~ /enum/i
@@ -71,8 +71,8 @@ private
       __simplified_type_enum(field_type)
     end
   end
+  alias __simplified_type_enum simplified_type
 
-  alias __extract_limit_enum extract_limit
   def extract_limit(sql_type)
     if sql_type =~ /^enum/i
       sql_type.sub(/^enum\('(.+)'\)/i, '\1').split("','").map { |v| v.intern }
@@ -80,6 +80,7 @@ private
       __extract_limit_enum(sql_type)
     end
   end
+  alias __extract_limit_enum extract_limit
 
 
 end
